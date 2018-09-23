@@ -59,7 +59,7 @@ Even though bonbo allows any callable to be used , we would restrict ourselves t
 
 Here is an example
 
-```
+```python
 from bonobo.config import Configurable, ContextProcessor
 import json
 
@@ -85,7 +85,7 @@ This method is more like a initialisation that would be done at the run time lev
 
 Also , the initialise method woudld initialise the object with the Nodeexecution context and override the bonobo's Finalise method with the finalise method written for the class.
 
-```
+```python
     # For the finalise call
         self.context = context
         context.input.on_finalize = self.finalise
@@ -93,10 +93,10 @@ Also , the initialise method woudld initialise the object with the Nodeexecution
 
  **Note** The method should be prefixed by the decorator **_ContextProcessor_** as this ensures the initialisation method is only called once during the execution of the node.
 
- #### Method Call:
+#### Method Call:
  This is the core processor method that would be called for every message passed in by the previous stage in the pipeline. 
 
- #### Method Finalise:
+#### Method Finalise:
 
  More like a destructor for a class, enusring to dispose the garbages that are no longer needed also perform _finally()_ steps for the node as such here.
 
@@ -104,7 +104,7 @@ Also , the initialise method woudld initialise the object with the Nodeexecution
 
  **Note** : Should include the calling call as we are overriding the Bonobo's On_finalize method.
 
-```
+```python
          self.context.stop()
 ``` 
 
