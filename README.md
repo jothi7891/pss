@@ -18,13 +18,15 @@ The simulator system provides couple of interfaces through which the other produ
 
 ##  Installation
 First and foremost, it is necessary to get the simulator system up and running. The system is very light weight and could be very easily run in the same instance where the product in need of the feeds is being run.
+
 ### System Requirements
+Details the hardware and software requirements for the project.
 
 ####Hardware
 
 The following is the minimum level of hardware that airline simulator system requires. While it may be technically possible to run the simulator system on hardware older than this, it is neither recommended nor supported.
 
-#####Linux
+####Linux
 
 * Processor: Intel Core 2 Duo, AMD Athlon X2, or better
 * Free Memory:
@@ -34,7 +36,7 @@ The following is the minimum level of hardware that airline simulator system req
 	* 100 MB for the Airline Simulator System
 	* 2 GB or more recommended for storing the `Postgres` data.
 
-#####Mac
+####Mac
 
 * Processor: Intel Core 2 Duo or better
 * Free Memory:
@@ -44,7 +46,7 @@ The following is the minimum level of hardware that airline simulator system req
 	* 100 MB for the Airline Simulator System
 	* 2 GB or more recommended for storing the `Postgres` data.
 
-#####Windows
+####Windows
 
 * Currently, **`Windows O/S`** is not supported for running the airline simulator system.
 
@@ -116,7 +118,7 @@ https://api.pssmock.com/v1/inventories/json?flightnumber=0008&date="2019-01-01"
 ```
 ####Example 2: Retrieve flight inventory for flight number *0009* for departure date *2019-01-01* departing from airport *SFO*
 
-#####Request:
+####Request:
 ```api
 https://api.pssmock.com/v1/inventories/json?flightnumber=0009&date="2019-01-01"&airport="SFO"
 ``` 
@@ -196,7 +198,7 @@ This example illustrates a case where multiple flight legs would be returned. Fl
 ###Developer Notes:
 For developers who wish not to use `Docker` and would like to play around with the product, the following steps would be helpful. Please skip this , if you have already got the docker running with the `docker_compose.yml`.
 
-##### Get and install pipenv
+#### Get and install pipenv
 
 This project makes use of [pipenv](https://docs.pipenv.org/) for managing dependencies and environments.
 
@@ -212,7 +214,7 @@ For more information on pipenv:
 pipenv --help
 ```
 
-##### Install project dependencies
+#### Install project dependencies
 
 To install all dependencies for the project:
 
@@ -233,7 +235,7 @@ Similarly, running files in the project that require these dependencies can be r
 pipenv run <the filename or command>
 ```
 
-### General Guidelines for using Bonobo
+#### General Guidelines for using Bonobo
 
 The core of the project is written in [Bonobo] (http://docs.bonobo-project.org/en/master/index.html), a **WIP** light-weight `python` based ETL tool. For the purposes of this project, the following is the style that we are intending to follow for any of the data processors that would be used as part of the ETL. So if you ever want to modify/add a data-processor in the pipeline, please follow the guidelines defined below.
 
@@ -263,7 +265,7 @@ class ssim_file_reader(Configurable):
 ```
 Each class should have the methods *initialise*, *call*, *finalize*.
 
-#### Method Initialise:
+##### Method Initialise:
 This method is more like a initialisation that would be done at the run time level . You could initialize counters, get the necessary database connections, file streams that the processor would be using for any of the ETL operations for the particular node.
 
 Also , the initialise method would initialise the object with the Nodeexecution context and override the bonobo's Finalise method with the finalise method written for the class.
@@ -276,10 +278,10 @@ Also , the initialise method would initialise the object with the Nodeexecution 
 
  **Note** The method should be prefixed by the decorator ***ContextProcessor*** as this ensures the initialisation method is only called once during the execution of the node.
 
-#### Method Call:
+##### Method Call:
  This is the core processor method that would be called for every message passed in by the previous stage in the pipeline. 
 
-#### Method Finalise:
+##### Method Finalise:
 
  More like a destructor for a class, ensuring to dispose the garbage that are no longer needed ,also performs *finally()* steps for the node such as closing db connections, closing file-handlers etc.
 
