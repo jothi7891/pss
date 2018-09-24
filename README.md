@@ -82,8 +82,8 @@ RABBIT_MQ_PORT=5672
 
 ```json
 {
-    "RABBIT_INV_EXCHANGE": "Inventory"
-    "RABBIT_INV_QUEUE":"Inventory"
+    "RABBIT_INV_EXCHANGE": "Inventory",
+    "RABBIT_INV_QUEUE": "Inventory"
 }
 ```
 
