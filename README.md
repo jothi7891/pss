@@ -22,11 +22,11 @@ First and foremost, it is necessary to get the simulator system up and running. 
 ### System Requirements
 Details the hardware and software requirements for the project.
 
-####Hardware
+#### Hardware
 
 The following is the minimum level of hardware that airline simulator system requires. While it may be technically possible to run the simulator system on hardware older than this, it is neither recommended nor supported.
 
-####Linux
+#### Linux
 
 * Processor: Intel Core 2 Duo, AMD Athlon X2, or better
 * Free Memory:
@@ -36,7 +36,7 @@ The following is the minimum level of hardware that airline simulator system req
 	* 100 MB for the Airline Simulator System
 	* 2 GB or more recommended for storing the `Postgres` data.
 
-####Mac
+#### Mac
 
 * Processor: Intel Core 2 Duo or better
 * Free Memory:
@@ -46,11 +46,11 @@ The following is the minimum level of hardware that airline simulator system req
 	* 100 MB for the Airline Simulator System
 	* 2 GB or more recommended for storing the `Postgres` data.
 
-####Windows
+#### Windows
 
 * Currently, **`Windows O/S`** is not supported for running the airline simulator system.
 
-####Software
+#### Software
 The core of the product is written in python and the package dependencies are managed through the usage of `pipenv`. For convenience, the entire software package and its related dependencies like data initialization are managed through `DOCKER` and the `docker_compose.yml` is available in the root directory of the repository.
 
 The following commands should get the airline simulator system up and running.
@@ -61,11 +61,11 @@ git clone git@github.com:jothi7891/pss.git
 docker-compose up
 ```
 
-##Usage:
+## Usage:
 
 As described earlier, the feeds could be obtained through either subscribing to a Rabbit queue or calling an API for acquiring data as needed.
 
-###Rabbit-MQ:
+### Rabbit-MQ:
 
 The only input needed from the user would be to setup the `Rabbit` Connection parameters , if they ever wanted to override the defaults provided and set up the right `exchange` and `queue` names in the `config.json` present in the root directory. The connection parameters are defined in the `.env` file. The output format would be `json` message in the format defined below in the `Inventory Examples` section
 
@@ -87,7 +87,7 @@ RABBIT_MQ_PORT=5672
 }
 ```
 
-###API:
+### API:
 
 The Inventories API allows you to retrieve inventory information for flights with availability of seats on each cabin(First class, Business Class and Economy Class if they are available). The result would be a single flight or a list of flights based on the parameters passed in the query. The 
 
@@ -101,31 +101,31 @@ where output can have the possible values of
 
 All parameters are separated using the ampersand(`&`) character
 
-####Required Parameters:
+#### Required Parameters:
 * `flightnumber` - the `flightnumber` for which the inventory information should be retrieved. It could be either in `string` or `integer` format.
 * `date` - the `departure date` of the flight. It could be in any standard date format as supported by `RFC 3339`
 
-####Optional Parameters:
+#### Optional Parameters:
 * `airport` - 3 character `IATA` airport code. Its the `departure airport` of the flight that you are interested in. This is very helpful in filtering out a particular flight leg from multi-leg flight.
 
-###Inventory API Request Examples
+### Inventory API Request Examples
 
-####Example 1: Retrieve flight inventory for flight number *0008* for departure date *2019-01-01*
+#### Example 1: Retrieve flight inventory for flight number *0008* for departure date *2019-01-01*
 
-#####Request:
+##### Request:
 ```api
 https://api.pssmock.com/v1/inventories/json?flightnumber=0008&date="2019-01-01"
 ```
-####Example 2: Retrieve flight inventory for flight number *0009* for departure date *2019-01-01* departing from airport *SFO*
+#### Example 2: Retrieve flight inventory for flight number *0009* for departure date *2019-01-01* departing from airport *SFO*
 
-####Request:
+#### Request:
 ```api
 https://api.pssmock.com/v1/inventories/json?flightnumber=0009&date="2019-01-01"&airport="SFO"
 ``` 
 
-###Inventory Response:
+### Inventory Response:
 
-####Example 1:
+#### Example 1:
 Below is a sample inventory response that is produced as a response to the `API` below call.
 
 ```api
@@ -160,14 +160,14 @@ Each `flightInventory` object contains the following elements
 	* `seats_available` - an `integer` representing the number of seats available in the compartment.
 	* `seats_sold` - an `integer` representing the number of seats sold in the compartment.
 
-#####Status Code:
+##### Status Code:
 The `"status"` field within the response object contains the status of the request and may contain debugging information.
 
 * `OK` indicates that no errors occurred.
 * `NO_RESULTS` indicates the search was successful but no results were returned.
 * `INVALID_REQUEST` indicates an error in the parameter that is passed along with the query.
 
-####Example 2: 	
+#### Example 2: 	
 This example illustrates a case where multiple flight legs would be returned. Flight 905 is multi-leg flight from `ATL-MSW-EWR`.
 
 ```json
@@ -195,7 +195,7 @@ This example illustrates a case where multiple flight legs would be returned. Fl
     }],
     "status" : "OK"
 ```
-###Developer Notes:
+### Developer Notes:
 For developers who wish not to use `Docker` and would like to play around with the product, the following steps would be helpful. Please skip this , if you have already got the docker running with the `docker_compose.yml`.
 
 #### Get and install pipenv
